@@ -1,21 +1,26 @@
 #ifndef _MY_OBJ_H_
 #define _MY_OBJ_H_ 1
 #include <bits/stdc++.h>
+#include <cstring>
 static int _id = 0;
 
-class Obj{
+class Obj
+{
 
 public:
-	char* memBlock = nullptr;
+	char *memBlock = nullptr;
 	size_t size = 0;
 	int id = 0;
+
 public:
-	Obj(){
+	Obj()
+	{
 		id = _id++;
-		std::cout << "Object Created Default. " << id <<"\n";
+		std::cout << "Object Created Default. " << id << "\n";
 	};
-	
-	Obj(const char* str){
+
+	Obj(const char *str)
+	{
 		id = _id++;
 		size = strlen(str);
 		memBlock = new char[size + 1];
@@ -23,22 +28,26 @@ public:
 		std::cout << "Object Created String. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 	}
 
-	
-	Obj(const Obj& obj){
+	Obj(const Obj &obj)
+	{
 		id = _id++;
-		
+
 		this->size = obj.size;
-		if(obj.memBlock != nullptr){
-			char* temp = new char[size];
+		if (obj.memBlock != nullptr)
+		{
+			char *temp = new char[size];
 			memcpy(temp, obj.memBlock, size + 1);
 			this->memBlock = temp;
-		}else{
+		}
+		else
+		{
 			this->memBlock = nullptr;
 		}
 		std::cout << "Object Copied. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 	}
 
-	Obj(Obj&& obj){
+	Obj(Obj &&obj)
+	{
 		id = _id++;
 
 		this->size = obj.size;
@@ -48,49 +57,83 @@ public:
 		std::cout << "Object Moved. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 	}
 
-	Obj& operator=(const Obj& obj){
+	Obj &operator=(const Obj &obj)
+	{
 		id = _id++;
-		
+
 		delete this->memBlock;
-		
+
 		this->size = obj.size;
-		if(obj.memBlock != nullptr){
-			char* temp = new char[size];
+		if (obj.memBlock != nullptr)
+		{
+			char *temp = new char[size];
 			memcpy(temp, obj.memBlock, size + 1);
 			this->memBlock = temp;
-		}else{
+		}
+		else
+		{
 			this->memBlock = nullptr;
 		}
 		std::cout << "Object Copy Assigned. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 		return *this;
 	}
 
-	Obj& operator=(Obj&& obj){
+	Obj &operator=(Obj &&obj)
+	{
 		id = _id++;
-		
+
 		delete this->memBlock;
-		
+
 		this->size = obj.size;
-		if(obj.memBlock != nullptr){
+		if (obj.memBlock != nullptr)
+		{
 			this->memBlock = obj.memBlock;
 			obj.memBlock = nullptr;
-		}else{
+		}
+		else
+		{
 			this->memBlock = nullptr;
 		}
 		std::cout << "Object Move Assigned. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 		return *this;
 	}
 
-	~Obj(){
+	bool operator<(Obj &obj)
+	{
+		return strcmp(this->memBlock, obj.memBlock) < 0;
+	}
+	bool operator>(Obj &obj)
+	{
+		return strcmp(this->memBlock, obj.memBlock) > 0;
+	}
+	bool operator==(Obj &obj)
+	{
+		return strcmp(this->memBlock, obj.memBlock) == 0;
+	}
+	bool operator<=(Obj &obj)
+	{
+		return strcmp(this->memBlock, obj.memBlock) <= 0;
+	}
+	bool operator>=(Obj &obj)
+	{
+		return strcmp(this->memBlock, obj.memBlock) >= 0;
+	}
+	bool operator!=(Obj &obj)
+	{
+		return strcmp(this->memBlock, obj.memBlock) != 0;
+	}
+	~Obj()
+	{
 		std::cout << "Object Destroyed. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 		delete memBlock;
 	}
 
-	char& operator[] (unsigned long int i){return memBlock[i];}
-    const char& operator[] (unsigned long int i) const {return memBlock[i];} 
+	char &operator[](unsigned long int i) { return memBlock[i]; }
+	const char &operator[](unsigned long int i) const { return memBlock[i]; }
 };
 
-std::ostream& operator<<(std::ostream& stream, const Obj& obj){
+std::ostream &operator<<(std::ostream &stream, const Obj &obj)
+{
 	return stream << obj.memBlock;
 }
 
