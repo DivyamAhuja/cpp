@@ -1,3 +1,6 @@
+#ifndef _MY_ARRAY_
+#define _MY_ARRAY_ 1
+
 #include <iostream>
 
 template<typename T, size_t S> class Array{
@@ -23,3 +26,5 @@ public:
         std::cout << '\n';
     }
 };
+
+#endif
