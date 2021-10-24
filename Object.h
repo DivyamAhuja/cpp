@@ -1,6 +1,6 @@
 #ifndef _MY_OBJ_H_
 #define _MY_OBJ_H_ 1
-#include <bits/stdc++.h>
+#include <cstdlib>
 #include <cstring>
 static int _id = 0;
 
@@ -43,7 +43,7 @@ public:
 		{
 			this->memBlock = nullptr;
 		}
-		std::cout << "Object Copied. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
+		std::cout << "Object Copied. " << obj.id << " -> " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 	}
 
 	Obj(Obj &&obj)
@@ -54,13 +54,12 @@ public:
 		obj.size = 0;
 		this->memBlock = obj.memBlock;
 		obj.memBlock = nullptr;
-		std::cout << "Object Moved. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
+		std::cout << "Object Moved. " << obj.id << " -> " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 	}
 
 	Obj &operator=(const Obj &obj)
 	{
-		id = _id++;
-
+		
 		delete this->memBlock;
 
 		this->size = obj.size;
@@ -74,14 +73,13 @@ public:
 		{
 			this->memBlock = nullptr;
 		}
-		std::cout << "Object Copy Assigned. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
+		std::cout << "Object Copy Assigned. " << obj.id << " -> " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 		return *this;
 	}
 
 	Obj &operator=(Obj &&obj)
 	{
-		id = _id++;
-
+		
 		delete this->memBlock;
 
 		this->size = obj.size;
@@ -94,7 +92,7 @@ public:
 		{
 			this->memBlock = nullptr;
 		}
-		std::cout << "Object Move Assigned. " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
+		std::cout << "Object Move Assigned. " << obj.id << " -> " << id << " " << (memBlock != nullptr ? memBlock : "nullptr") << "\n";
 		return *this;
 	}
 
